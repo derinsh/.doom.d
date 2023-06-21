@@ -82,12 +82,12 @@
 (evil-define-key '(visual) 'global (kbd "C-\\") #'comment-region)
 (evil-define-key '(visual) 'global (kbd "C-|") #'uncomment-region)
 
+(map! :leader
+      "SPC" #'execute-extended-command)
+
 (map! :map evil-window-map
       "/" #'split-window-horizontally
       "-" #'split-window-vertically)
-
-;; (undefine-key! with-editor-mode-map
-;;   ",")
 
 (map! :map with-editor-mode-map
       :n ", c" #'with-editor-finish

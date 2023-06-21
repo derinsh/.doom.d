@@ -44,7 +44,6 @@
  '(lsp-tailwindcss-add-on-mode t)
  '(lsp-treemacs-sync-mode t)
  '(mouse-1-click-follows-link t)
- '(package-selected-packages '(spaceline-all-the-icons spaceline))
  '(size-indication-mode t)
  '(tab-bar-auto-width-max '(350 20))
  '(tab-bar-mode nil)
