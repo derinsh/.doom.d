@@ -3,11 +3,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(TeX-check-path
-   '("." "~/AppData/Local/Programs/MiKTeX/tex/" "~/AppData/Local/Programs/MiKTeX/bibtex/bst/" "~/AppData/Local/Programs/texmf"))
- '(TeX-macro-private '("~/AppData/Local/Programs/texmf"))
- '(TeX-tree-roots
-   '("~/AppData/Local/Programs/MiKTeX/" "~/AppData/Local/Programs/texmf"))
  '(all-the-icons--cache-limit 4096)
  '(all-the-icons-alltheicon-scale-factor 1.4)
  '(all-the-icons-scale-factor 1.4)
@@ -16,7 +11,6 @@
  '(byte-compile-verbose nil)
  '(cider-auto-jump-to-error nil)
  '(cider-auto-select-error-buffer nil)
- '(cider-clojure-cli-command "pwsh")
  '(cider-jack-in-default 'clojure-cli)
  '(cider-repl-use-content-types t)
  '(cider-show-error-buffer 'except-in-repl)
@@ -24,7 +18,6 @@
  '(custom-safe-themes
    '("da75eceab6bea9298e04ce5b4b07349f8c02da305734f7c0c8c6af7b5eaa9738" "aec7b55f2a13307a55517fdf08438863d694550565dee23181d2ebd973ebd6b8" "636b135e4b7c86ac41375da39ade929e2bd6439de8901f53f88fde7dd5ac3561" "944d52450c57b7cbba08f9b3d08095eb7a5541b0ecfb3a0a9ecd4a18f3c28948" default))
  '(context-menu-mode t)
- '(epg-gpg-home-directory "c:/program files (x86)/gnupg/bin/gpg.exe")
  '(global-prettify-symbols-mode t)
  '(image-use-external-converter t)
  '(ls-lisp-use-insert-directory-program t)
@@ -41,18 +34,14 @@
  '(lsp-rust-analyzer-server-display-inlay-hints t)
  '(lsp-tailwindcss-add-on-mode t)
  '(lsp-treemacs-sync-mode t)
- '(magit-git-executable "C:/Program Files/Git/bin/git.exe")
- '(menu-bar-mode t)
  '(mouse-1-click-follows-link t)
- '(package-gnupghome-dir "~/.emacs.d/elpa/gnupg")
  '(size-indication-mode t)
  '(tool-bar-mode nil)
  '(tab-bar-auto-width-max '(350 20))
- '(tab-bar-mode t)
+ '(tab-bar-mode nil)
  '(tab-bar-tab-name-truncated-max 30)
  '(tooltip-delay 0.5)
  '(tooltip-reuse-hidden-frame nil)
- '(treemacs-python-executable "c:/lib/Pyton/Python39/python.exe")
  '(treemacs-width 28)
  '(treemacs-window-background-color '("#1f1720" . "#45395b"))
  '(use-package-always-demand nil)
@@ -65,7 +54,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "FiraCode NF" :foundry "outline" :slant normal :weight regular :height 102 :width normal))))
  '(button ((t (:inherit link :box (:line-width (2 . 2) :color "dark slate gray" :style released-button) :underline nil))))
  '(company-tooltip-common ((t (:inherit company-tooltip :background "#34323e" :foreground "#4f97d7" :underline nil :weight bold))))
  '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :foreground "#4f97d7" :underline nil :weight bold))))
