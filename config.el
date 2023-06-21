@@ -45,6 +45,7 @@
 (setq doom-incremental-packages nil)
 (defconst dd/using-native-comp (and (fboundp 'native-comp-available-p)
                                       (native-comp-available-p)))
+(setq native-comp-async-jobs-number 6)
 (setq native-comp-async-query-on-exit t)
 (setq native-comp-async-report-warnings-errors nil)
 
@@ -69,7 +70,7 @@
 (add-hook 'buffer-list-update-hook #'update-scroll-bars)
 (setq-default bidi-inhibit-bpa t)
 
-(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 18))
+(setq doom-font (font-spec :family "FiraCode NF" :size 16))
 
 (evil-define-key '(normal insert visual motion emacs) 'global [mouse-4] #'previous-buffer)
 (evil-define-key '(normal insert visual motion emacs) 'global [mouse-5] #'next-buffer)
