@@ -32,7 +32,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-dracula)
+(setq doom-theme 'doom-one)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -45,7 +45,6 @@
 (setq doom-incremental-packages nil)
 (defconst dd/using-native-comp (and (fboundp 'native-comp-available-p)
                                       (native-comp-available-p)))
-(setq native-comp-async-jobs-number 6)
 (setq native-comp-async-query-on-exit t)
 (setq native-comp-async-report-warnings-errors nil)
 
@@ -56,6 +55,7 @@
 
 (pixel-scroll-precision-mode 1)
 
+(menu-bar-mode 0)
 (blink-cursor-mode 1)
 
 (defun update-scroll-bars ()
@@ -69,18 +69,33 @@
 (add-hook 'buffer-list-update-hook #'update-scroll-bars)
 (setq-default bidi-inhibit-bpa t)
 
-(setq doom-font (font-spec :family "FiraCode NF" :size 16))
+(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 18))
 
 (evil-define-key '(normal insert visual motion emacs) 'global [mouse-4] #'previous-buffer)
 (evil-define-key '(normal insert visual motion emacs) 'global [mouse-5] #'next-buffer)
+(evil-define-key '(normal insert visual motion emacs) 'global (kbd "<C-left>") #'previous-buffer)
+(evil-define-key '(normal insert visual motion emacs) 'global (kbd "<C-right>") #'next-buffer)
 (evil-define-key '(normal insert visual emacs) dired-mode-map [mouse-1] #'dired-find-file)
 (evil-define-key '(normal insert visual motion emacs) 'global (kbd "M-<f1>") #'tab-line-mode)
 (evil-define-key '(normal insert visual motion emacs) 'global (kbd "M-<f2>") #'treemacs-add-and-display-current-project-exclusively)
 (evil-define-key '(normal insert visual motion emacs) 'global (kbd "M-<f3>") #'global-tab-line-mode)
-(evil-define-key '(normal insert visual motion emacs) 'global (kbd "<leader>b") #'switch-to-buffer)
-(evil-define-key '(normal insert visual motion emacs) 'global (kbd "<leader>B") #'+vertico/switch-workspace-buffer)
 (evil-define-key '(visual) 'global (kbd "C-\\") #'comment-region)
 (evil-define-key '(visual) 'global (kbd "C-|") #'uncomment-region)
+
+(map! :leader
+      "SPC" #'execute-extended-command)
+
+(map! :map evil-window-map
+      "/" #'split-window-horizontally
+      "-" #'split-window-vertically)
+
+(map! :map with-editor-mode-map
+      :n ", c" #'with-editor-finish
+      :n ", k" #'with-editor-cancel)
+
+(map! :leader
+      "b b" #'switch-to-buffer
+      "b B" #'+vertico/switch-workspace-buffer)
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
