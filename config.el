@@ -73,12 +73,12 @@
 
 (evil-define-key '(normal insert visual motion emacs) 'global [mouse-4] #'previous-buffer)
 (evil-define-key '(normal insert visual motion emacs) 'global [mouse-5] #'next-buffer)
+(evil-define-key '(normal insert visual motion emacs) 'global (kbd "<C-left>") #'previous-buffer)
+(evil-define-key '(normal insert visual motion emacs) 'global (kbd "<C-right>") #'next-buffer)
 (evil-define-key '(normal insert visual emacs) dired-mode-map [mouse-1] #'dired-find-file)
 (evil-define-key '(normal insert visual motion emacs) 'global (kbd "M-<f1>") #'tab-line-mode)
 (evil-define-key '(normal insert visual motion emacs) 'global (kbd "M-<f2>") #'treemacs-add-and-display-current-project-exclusively)
 (evil-define-key '(normal insert visual motion emacs) 'global (kbd "M-<f3>") #'global-tab-line-mode)
-(evil-define-key '(normal insert visual motion emacs) 'global (kbd "<leader>b") #'switch-to-buffer)
-(evil-define-key '(normal insert visual motion emacs) 'global (kbd "<leader>B") #'+vertico/switch-workspace-buffer)
 (evil-define-key '(visual) 'global (kbd "C-\\") #'comment-region)
 (evil-define-key '(visual) 'global (kbd "C-|") #'uncomment-region)
 
@@ -86,12 +86,16 @@
       "/" #'split-window-horizontally
       "-" #'split-window-vertically)
 
-(undefine-key! with-editor-mode-map
-  ",")
+;; (undefine-key! with-editor-mode-map
+;;   ",")
 
 (map! :map with-editor-mode-map
-      ", c" #'with-editor-finish
-      ", k" #'with-editor-cancel)
+      :n ", c" #'with-editor-finish
+      :n ", k" #'with-editor-cancel)
+
+(map! :leader
+      "b b" #'switch-to-buffer
+      "b B" #'+vertico/switch-workspace-buffer)
 
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
