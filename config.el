@@ -53,10 +53,11 @@
 
 ;;;; UI
 
-(pixel-scroll-precision-mode 1)
+(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 18))
 
 (menu-bar-mode 0)
 (blink-cursor-mode 1)
+(pixel-scroll-precision-mode 1)
 
 (defun update-scroll-bars ()
   (interactive)
@@ -69,7 +70,33 @@
 (add-hook 'buffer-list-update-hook #'update-scroll-bars)
 (setq-default bidi-inhibit-bpa t)
 
-(setq doom-font (font-spec :family "FiraCode Nerd Font" :size 18))
+(+global-word-wrap-mode)
+
+;;;;Config
+
+(after! doom-modeline
+  (setq
+   doom-modeline-battery nil
+   doom-modeline-buffer-modification-icon nil
+   doom-modeline-github t
+   doom-modeline-hud t
+   doom-modeline-mode-icon t
+   doom-modeline-time nil
+   doom-modeline-time-icon nil
+   doom-modeline-unicode-fallback t
+   doom-modeline-workspace-name nil))
+
+(setq-default
+   doom-modeline-battery nil
+   doom-modeline-buffer-modification-icon nil
+   doom-modeline-github t
+   doom-modeline-hud t
+   doom-modeline-time nil
+   doom-modeline-time-icon nil
+   doom-modeline-unicode-fallback t
+   doom-modeline-workspace-name nil)
+
+;;;; Bindings
 
 (evil-define-key '(normal insert visual motion emacs) 'global [mouse-4] #'previous-buffer)
 (evil-define-key '(normal insert visual motion emacs) 'global [mouse-5] #'next-buffer)
