@@ -51,9 +51,12 @@
 (setenv "LSP_USE_PLISTS" "1")
 (setq-default lsp-use-plists t)
 
+(setq straight-vc-git-default-clone-depth 1)
+
 ;;;; UI
 
 (setq doom-font (font-spec :family "FiraCode Nerd Font" :size 18))
+(setq doom-variable-pitch-font (font-spec :family "NotoSans Nerd Font" :size 18))
 
 (menu-bar-mode 0)
 (blink-cursor-mode 1)
@@ -68,11 +71,28 @@
 
 (add-hook 'window-configuration-change-hook #'update-scroll-bars)
 (add-hook 'buffer-list-update-hook #'update-scroll-bars)
-(setq-default bidi-inhibit-bpa t)
 
 (+global-word-wrap-mode)
 
+(setq +doom-dashboard-ascii-banner-fn
+      (lambda ()
+        (let* ((banner '(" "
+                         "EMACS"
+                         " "))
+         (longest-line (apply #'max (mapcar #'length banner))))
+    (put-text-property
+     (point)
+     (dolist (line banner (point))
+       (insert (+doom-dashboard--center
+                +doom-dashboard--width
+                (concat line (make-string (max 0 (- longest-line (length line))) 32)))
+               "\n"))
+     'face 'doom-dashboard-banner))))
+
 ;;;;Config
+
+(let ((default-directory "~/.doom.d/elp"))
+    (normal-top-level-add-subdirs-to-load-path))
 
 (after! doom-modeline
   (setq
@@ -95,6 +115,29 @@
    doom-modeline-time-icon nil
    doom-modeline-unicode-fallback t
    doom-modeline-workspace-name nil)
+
+
+(add-hook 'Info-selection-hook 'info-colors-fontify-node)
+(setq-default inhibit-compacting-font-caches t)
+(setq-default bidi-inhibit-bpa t)
+
+;;;; Prog
+
+;;(add-hook 'lsp-mode-hook #'eldoc-box-hover-mode)
+
+(setq treesit-extra-load-path '("~/.doom.d/elp/tree-sitter-module/dist"))
+
+(add-hook 'company-completion-started-hook
+            #'(lambda (&rest _)
+              (setq-local lsp-inhibit-lsp-hooks t)
+              (lsp--capf-clear-cache))
+            nil
+            t)
+
+(add-hook 'c-ts-mode-hook 'lsp)
+(remove-hook 'c-ts-mode-hook 'tree-sitter-mode)
+
+(setq-default lsp-ui-doc-show-with-mouse t)
 
 ;;;; Bindings
 
@@ -124,7 +167,7 @@
       "b b" #'switch-to-buffer
       "b B" #'+vertico/switch-workspace-buffer)
 
-;;;;Org mode
+;;;; Org
 
 (setq org-hide-emphasis-markers t)
 
@@ -155,7 +198,7 @@
 
 (custom-theme-set-faces
    'user
-   '(variable-pitch ((t (:family "NotoSans Nerd Font" :height 200))))
+   '(variable-pitch ((t (:family "NotoSans Nerd Font" :height 140))))
    '(fixed-pitch ((t ( :family "FiraCode Nerd Font" :height 180)))))
 
 (add-hook 'org-mode-hook 'visual-line-mode)
@@ -171,7 +214,7 @@
    '(org-meta-line ((t (:inherit (font-lock-comment-face fixed-pitch)))))
    '(org-property-value ((t (:inherit fixed-pitch))) t)
    '(org-special-keyword ((t (:inherit (font-lock-comment-face fixed-pitch)))))
-   '(org-table ((t (:inherit fixed-pitch :foreground "#83a598"))))
+   '(org-table ((t (:foreground "#83a598" :family "iMWritingQuat Nerd Font Prop"))))
    '(org-tag ((t (:inherit (shadow fixed-pitch) :weight bold :height 0.8))))
    '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
 
