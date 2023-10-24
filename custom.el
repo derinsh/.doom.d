@@ -6,6 +6,8 @@
  '(all-the-icons--cache-limit 4096)
  '(all-the-icons-alltheicon-scale-factor 1.4)
  '(all-the-icons-scale-factor 1.4)
+ '(auth-sources
+   '("/home/psi/.emacs.d/.local/state/authinfo.gpg" "~/.authinfo.gpg" "~/.authinfo"))
  '(bidi-paragraph-direction 'left-to-right)
  '(byte-compile-docstring-max-column 120)
  '(byte-compile-verbose nil)
@@ -25,6 +27,7 @@
  '(eldoc-box-only-multi-line t)
  '(eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
  '(eldoc-echo-area-use-multiline-p nil)
+ '(forge-topic-list-limit '(60 . -10))
  '(global-prettify-symbols-mode t)
  '(image-use-external-converter t)
  '(ls-lisp-use-insert-directory-program t)
@@ -47,6 +50,7 @@
  '(lsp-ui-doc-max-width 100)
  '(lsp-ui-doc-show-with-mouse t)
  '(lsp-ui-doc-use-webkit t)
+ '(magit-todos-insert-after '(bottom) nil nil "Changed by setter of obsolete option `magit-todos-insert-at'")
  '(mouse-1-click-follows-link 'double)
  '(package-selected-packages '(centaur-tabs))
  '(persp-emacsclient-init-frame-behaviour-override

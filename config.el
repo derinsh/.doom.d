@@ -137,7 +137,9 @@
 (add-hook 'c-ts-mode-hook 'lsp)
 (remove-hook 'c-ts-mode-hook 'tree-sitter-mode)
 
-(setq-default lsp-ui-doc-show-with-mouse t)
+(after! lsp-ui (setq lsp-ui-doc-show-with-mouse t
+                     lsp-ui-doc-use-webkit t
+                     lsp-ui-doc-max-height 16))
 
 ;;;; Bindings
 

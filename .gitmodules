@@ -1,0 +1,6 @@
+[submodule "elp/screenshot"]
+	path = elp/screenshot
+	url = https://github.com/tecosaur/screenshot.git
+[submodule "elp/tree-sitter-module"]
+	path = elp/tree-sitter-module
+	url = https://github.com/casouri/tree-sitter-module.git
