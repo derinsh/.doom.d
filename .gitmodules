@@ -4,3 +4,9 @@
 [submodule "elp/tree-sitter-module"]
 	path = elp/tree-sitter-module
 	url = https://github.com/casouri/tree-sitter-module.git
+[submodule "elp/nerd-fonts"]
+	path = elp/nerd-fonts
+	url = https://github.com/twlz0ne/nerd-fonts.el.git
+[submodule "elp/all-the-icons-nerd-fonts"]
+	path = elp/all-the-icons-nerd-fonts
+	url = https://github.com/mohkale/all-the-icons-nerd-fonts.git
