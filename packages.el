@@ -14,8 +14,14 @@
 (package! org-bullets)
 (package! centaur-tabs)
 (package! eldoc-box)
+(package! all-the-icons-nerd-fonts)
+(package! restclient)
+(package! extempore-mode)
+(package! gameoflife)
+(package! realgud)
 
 (package! screenshot :recipe (:host github :repo "tecosaur/screenshot"))
+(package! nerd-fonts :recipe (:host github :repo "twlz0ne/nerd-fonts.el"))
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
@@ -51,7 +57,7 @@
 
 ;; Doom's packages are pinned to a specific commit and updated from release to
 ;; release. The `unpin!' macro allows you to unpin single packages...
-;(unpin! pinned-package)
+(unpin! doom-themes)
 ;; ...or multiple packages
 ;(unpin! pinned-package another-pinned-package)
 ;; ...Or *all* packages (NOT RECOMMENDED; will likely break things)

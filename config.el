@@ -32,7 +32,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-moonlight)
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -42,7 +42,9 @@
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "~/org/")
 
-(setq doom-incremental-packages nil)
+;;;; Core
+
+;(setq doom-incremental-packages nil)
 (defconst dd/using-native-comp (and (fboundp 'native-comp-available-p)
                                       (native-comp-available-p)))
 (setq native-comp-async-query-on-exit t)
@@ -56,7 +58,7 @@
 ;;;; UI
 
 (setq doom-font (font-spec :family "FiraCode Nerd Font" :size 18))
-(setq doom-variable-pitch-font (font-spec :family "NotoSans Nerd Font" :size 18))
+(setq doom-variable-pitch-font (font-spec :family "LiterationSans Nerd Font" :size 19))
 
 (menu-bar-mode 0)
 (blink-cursor-mode 1)
@@ -89,7 +91,7 @@
                "\n"))
      'face 'doom-dashboard-banner))))
 
-;;;;Config
+;;;; Config
 
 (let ((default-directory "~/.doom.d/elp"))
     (normal-top-level-add-subdirs-to-load-path))
@@ -116,8 +118,9 @@
    doom-modeline-unicode-fallback t
    doom-modeline-workspace-name nil)
 
-
 (add-hook 'Info-selection-hook 'info-colors-fontify-node)
+
+;; Speed up fonts
 (setq-default inhibit-compacting-font-caches t)
 (setq-default bidi-inhibit-bpa t)
 
@@ -169,6 +172,9 @@
       "b b" #'switch-to-buffer
       "b B" #'+vertico/switch-workspace-buffer)
 
+(map! :after evil
+      :nig "<mouse-2>" 'ignore)
+
 ;;;; Org
 
 (setq org-hide-emphasis-markers t)
@@ -177,9 +183,9 @@
                           '(("^ *\\([-]\\) "
                              (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
 
-(use-package org-bullets
-    :config
-    (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+(use-package! org-bullets
+   :config
+   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
 (let* ((variable-tuple
           '(:font "ETBookOT"))
@@ -200,7 +206,7 @@
 
 (custom-theme-set-faces
    'user
-   '(variable-pitch ((t (:family "NotoSans Nerd Font" :height 140))))
+   '(variable-pitch ((t (:family "LiterationSans Nerd Font" :height 140))))
    '(fixed-pitch ((t ( :family "FiraCode Nerd Font" :height 180)))))
 
 (add-hook 'org-mode-hook 'visual-line-mode)
@@ -221,6 +227,121 @@
    '(org-verbatim ((t (:inherit (shadow fixed-pitch))))))
 
 (add-hook 'org-mode-hook 'mixed-pitch-mode)
+
+;;;; Icons and Tabs
+
+(use-package! all-the-icons-nerd-fonts
+  :after all-the-icons
+  :demand t
+  :config
+  (all-the-icons-nerd-fonts-prefer))
+
+(after! centaur-tabs
+  (setq centaur-tabs-style "bar"
+         centaur-tabs-height 38
+         centaur-tabs-set-icons t
+         centaur-tabs-show-new-tab-button t
+         centaur-tabs-set-modified-marker t
+         centaur-tabs-set-bar 'left
+         centaur-tabs-show-count nil
+         x-underline-at-descent-line t
+         centaur-tabs-left-edge-margin nil
+         centaur-tabs-gray-out-icons t
+         ;centaur-tabs-plain-icons nil
+         )
+  (centaur-tabs-change-fonts (face-attribute 'default :font) 115)
+  (centaur-tabs-headline-match)
+  (centaur-tabs-mode t)
+  )
+
+(add-hook 'server-after-make-frame-hook #'(lambda () (require 'centaur-tabs)))
+
+(after! doom-themes
+  (doom-themes-treemacs-config)
+  (setq doom-themes-treemacs-theme "doom-colors"))
+
+;;;; Modes
+
+(after! gameoflife
+  (setq! gameoflife-screensaver-timeout 180
+         gameoflife-animation-speed 0.5)
+  (gameoflife-screensaver-mode t))
+
+(after! gcmh
+  (setq! gcmh-idle-delay 10
+         gcmh-high-cons-threshold 104857600)
+  (gcmh-mode t))
+
+;;;; Ligatures
+
+(after! ligature
+  ;; Enable the "www" ligature in every possible major mode
+  (ligature-set-ligatures 't '("www"))
+  ;; Enable traditional ligature support in eww-mode, if the
+  ;; `variable-pitch' face supports it
+  (ligature-set-ligatures 'eww-mode '("ff" "fi" "ffi"))
+  ;; Enable all Cascadia and Fira Code ligatures in programming modes
+  (ligature-set-ligatures 'prog-mode
+                        '(;; == === ==== => =| =>>=>=|=>==>> ==< =/=//=// =~
+                          ;; =:= =!=
+                          ("=" (rx (+ (or ">" "<" "|" "/" "~" ":" "!" "="))))
+                          ;; ;; ;;;
+                          (";" (rx (+ ";")))
+                          ;; && &&&
+                          ("&" (rx (+ "&")))
+                          ;; !! !!! !. !: !!. != !== !~
+                          ("!" (rx (+ (or "=" "!" "\." ":" "~"))))
+                          ;; ?? ??? ?:  ?=  ?.
+                          ("?" (rx (or ":" "=" "\." (+ "?"))))
+                          ;; %% %%%
+                          ("%" (rx (+ "%")))
+                          ;; |> ||> |||> ||||> |] |} || ||| |-> ||-||
+                          ;; |->>-||-<<-| |- |== ||=||
+                          ;; |==>>==<<==<=>==//==/=!==:===>
+                          ("|" (rx (+ (or ">" "<" "|" "/" ":" "!" "}" "\]"
+                                          "-" "=" ))))
+                          ;; \\ \\\ \/
+                          ("\\" (rx (or "/" (+ "\\"))))
+                          ;; ++ +++ ++++ +>
+                          ("+" (rx (or ">" (+ "+"))))
+                          ;; :: ::: :::: :> :< := :// ::=
+                          (":" (rx (or ">" "<" "=" "//" ":=" (+ ":"))))
+                          ;; // /// //// /\ /* /> /===:===!=//===>>==>==/
+                          ("/" (rx (+ (or ">"  "<" "|" "/" "\\" "\*" ":" "!"
+                                          "="))))
+                          ;; .. ... .... .= .- .? ..= ..<
+                          ("\." (rx (or "=" "-" "\?" "\.=" "\.<" (+ "\."))))
+                          ;; -- --- ---- -~ -> ->> -| -|->-->>->--<<-|
+                          ("-" (rx (+ (or ">" "<" "|" "~" "-"))))
+                          ;; *> */ *)  ** *** ****
+                          ("*" (rx (or ">" "/" ")" (+ "*"))))
+                          ;; www wwww
+                          ("w" (rx (+ "w")))
+                          ;; <> <!-- <|> <: <~ <~> <~~ <+ <* <$ </  <+> <*>
+                          ;; <$> </> <|  <||  <||| <|||| <- <-| <-<<-|-> <->>
+                          ;; <<-> <= <=> <<==<<==>=|=>==/==//=!==:=>
+                          ;; << <<< <<<<
+                          ("<" (rx (+ (or "\+" "\*" "\$" "<" ">" ":" "~"  "!"
+                                          "-"  "/" "|" "="))))
+                          ;; >: >- >>- >--|-> >>-|-> >= >== >>== >=|=:=>>
+                          ;; >> >>> >>>>
+                          (">" (rx (+ (or ">" "<" "|" "/" ":" "=" "-"))))
+                          ;; #: #= #! #( #? #[ #{ #_ #_( ## ### #####
+                          ("#" (rx (or ":" "=" "!" "(" "\?" "\[" "{" "_(" "_"
+                                       (+ "#"))))
+                          ;; ~~ ~~~ ~=  ~-  ~@ ~> ~~>
+                          ("~" (rx (or ">" "=" "-" "@" "~>" (+ "~"))))
+                          ;; __ ___ ____ _|_ __|____|_
+                          ("_" (rx (+ (or "_" "|"))))
+                          ;; Fira code: 0xFF 0x12
+                          ("0" (rx (and "x" (+ (in "A-F" "a-f" "0-9")))))
+                          ;; Fira code:
+                          "Fl"  "Tl"  "fi"  "fj"  "fl"  "ft"
+                          ;; The few not covered by the regexps.
+                          "{|"  "[|"  "]#"  "(*"  "}#"  "$>"  "^="))
+  ;; Enables ligature checks globally in all buffers. You can also do it
+  ;; per mode with `ligature-mode'.
+  (global-ligature-mode t))
 
 ;; Whenever you reconfigure a package, make sure to wrap your config in an
 ;; `after!' block, otherwise Doom's defaults may override your settings. E.g.
