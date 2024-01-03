@@ -7,11 +7,15 @@
  '(all-the-icons-alltheicon-scale-factor 1.0)
  '(all-the-icons-default-adjust -0.4)
  '(all-the-icons-scale-factor 1.0)
- '(auth-sources
-   '("/home/psi/.emacs.d/.local/state/authinfo.gpg" "~/.authinfo.gpg" "~/.authinfo"))
+ '(auth-sources '("/home/psi/.emacs.d/.local/state/authinfo.gpg"))
  '(bidi-paragraph-direction 'left-to-right)
  '(byte-compile-docstring-max-column 120)
  '(byte-compile-verbose nil)
+ '(centaur-tabs-excluded-prefixes
+   '("*epc" "*helm" "*Helm" " *which" "*Compile-Log*" "*lsp" "*LSP" "*company"
+     "*Flycheck" "*Ediff" "*ediff" "*tramp" " *Mini" "*help" "*straight"
+     " *temp" "*Help" "*Messages*" "*scratch" "*Native-compile"
+     "*Async-native-compile" "*clangd" "*GameOfLife" "*vterm" "*doom:vterm"))
  '(centaur-tabs-gray-out-icons t)
  '(cider-auto-jump-to-error nil)
  '(cider-auto-select-error-buffer nil)
@@ -21,7 +25,22 @@
  '(column-number-mode t)
  '(context-menu-mode t)
  '(custom-safe-themes
-   '("34cf3305b35e3a8132a0b1bdf2c67623bc2cb05b125f8d7d26bd51fd16d547ec"
+   '("9f297216c88ca3f47e5f10f8bd884ab24ac5bc9d884f0f23589b0a46a608fe14"
+     "7e377879cbd60c66b88e51fad480b3ab18d60847f31c435f15f5df18bdb18184"
+     "e1f4f0158cd5a01a9d96f1f7cdcca8d6724d7d33267623cc433fe1c196848554"
+     "4594d6b9753691142f02e67b8eb0fda7d12f6cc9f1299a49b819312d6addad1d"
+     "93011fe35859772a6766df8a4be817add8bfe105246173206478a0706f88b33d"
+     "4b6cc3b60871e2f4f9a026a5c86df27905fb1b0e96277ff18a76a39ca53b82e1"
+     "77fff78cc13a2ff41ad0a8ba2f09e8efd3c7e16be20725606c095f9a19c24d3d"
+     "6a5584ee8de384f2d8b1a1c30ed5b8af1d00adcbdcd70ba1967898c265878acf"
+     "7c28419e963b04bf7ad14f3d8f6655c078de75e4944843ef9522dbecfcd8717d"
+     "13096a9a6e75c7330c1bc500f30a8f4407bd618431c94aeab55c9855731a95e1"
+     "dccf4a8f1aaf5f24d2ab63af1aa75fd9d535c83377f8e26380162e888be0c6a9"
+     "4e2e42e9306813763e2e62f115da71b485458a36e8b4c24e17a2168c45c9cf9d"
+     "013728cb445c73763d13e39c0e3fd52c06eefe3fbd173a766bfd29c6d040f100"
+     "b5fd9c7429d52190235f2383e47d340d7ff769f141cd8f9e7a4629a81abc6b19"
+     "2078837f21ac3b0cc84167306fa1058e3199bbd12b6d5b56e3777a4125ff6851"
+     "34cf3305b35e3a8132a0b1bdf2c67623bc2cb05b125f8d7d26bd51fd16d547ec"
      "c5878086e65614424a84ad5c758b07e9edcf4c513e08a1c5b1533f313d1b17f1"
      "ffafb0e9f63935183713b204c11d22225008559fa62133a69848835f4f4a758c"
      "9013233028d9798f901e5e8efb31841c24c12444d3b6e92580080505d56fd392"
@@ -51,6 +70,26 @@
  '(eldoc-box-only-multi-line t)
  '(eldoc-documentation-strategy 'eldoc-documentation-compose-eagerly)
  '(eldoc-echo-area-use-multiline-p nil)
+ '(forge-alist
+   '(("github.com" "api.github.com" "github.com" forge-github-repository)
+     ("gh" "api.github.com" "github.com" forge-github-repository)
+     ("gitlab.com" "gitlab.com/api/v4" "gitlab.com" forge-gitlab-repository)
+     ("salsa.debian.org" "salsa.debian.org/api/v4" "salsa.debian.org"
+      forge-gitlab-repository)
+     ("framagit.org" "framagit.org/api/v4" "framagit.org"
+      forge-gitlab-repository)
+     ("gitlab.gnome.org" "gitlab.gnome.org/api/v4" "gitlab.gnome.org"
+      forge-gitlab-repository)
+     ("codeberg.org" "codeberg.org/api/v1" "codeberg.org" forge-gitea-repository)
+     ("code.orgmode.org" "code.orgmode.org/api/v1" "code.orgmode.org"
+      forge-gogs-repository)
+     ("bitbucket.org" "api.bitbucket.org/2.0" "bitbucket.org"
+      forge-bitbucket-repository)
+     ("git.savannah.gnu.org" nil "git.savannah.gnu.org" forge-cgit**-repository)
+     ("git.kernel.org" nil "git.kernel.org" forge-cgit-repository)
+     ("repo.or.cz" nil "repo.or.cz" forge-repoorcz-repository)
+     ("git.suckless.org" nil "git.suckless.org" forge-stagit-repository)
+     ("git.sr.ht" nil "git.sr.ht" forge-srht-repository)))
  '(forge-topic-list-limit '(60 . -10))
  '(global-prettify-symbols-mode t)
  '(image-use-external-converter t)
@@ -76,7 +115,8 @@
  '(lsp-ui-doc-use-webkit t)
  '(magit-todos-insert-after '(bottom) nil nil "Changed by setter of obsolete option `magit-todos-insert-at'")
  '(mouse-1-click-follows-link 'double)
- '(package-selected-packages '(centaur-tabs extempore-mode good-scroll restclient))
+ '(package-selected-packages
+   '(centaur-tabs extempore-mode good-scroll pinentry restclient vhdl-ts-mode))
  '(persp-emacsclient-init-frame-behaviour-override
    '(lambda (frame &optional new-frame-p) (persp-switch "main" frame)
       (unless (doom-real-buffer-p (current-buffer))
@@ -118,10 +158,11 @@
  '(eldoc-box-border ((t (:background "slate gray"))))
  '(error ((t (:foreground "#e67f43" :family "Source Code Pro"))))
  '(fixed-pitch ((t (:family "FiraCode Nerd Font" :height 180))))
- '(font-lock-comment-face ((t (:inherit variable-pitch :foreground "#2aa1ae" :slant italic :height 0.9 :family "iMWritingDuo Nerd Font propo"))))
+ '(font-lock-comment-face ((t (:inherit variable-pitch :foreground "#2aa1ae" :slant italic :height 95 :family "iMWritingDuo Nerd Font propo"))))
  '(font-lock-doc-face ((t (:inherit font-lock-comment-face :foreground "#83898d" :height 1.1))))
  '(highlight-parentheses-highlight ((nil (:weight ultra-bold))) t)
- '(line-number ((t (:inherit default :background "#1f2033" :foreground "#4E8776" :slant italic :weight light :family "JetBrainsMonoNL Nerd Font"))))
+ '(line-number ((t (:inherit default :foreground "#4E8776" :slant italic :weight light :family "JetBrainsMonoNL Nerd Font"))))
+ '(line-number-current-line ((t (:inherit (hl-line default) :slant normal :weight semi-bold :family "JetBrainsMonoNL Nerd Font"))))
  '(lsp-headerline-breadcrumb-path-face ((t (:inherit font-lock-string-face :height 1.05))))
  '(lsp-headerline-breadcrumb-symbols-face ((t (:inherit font-lock-doc-face :weight bold))))
  '(lsp-ui-doc-highlight-hover ((t (:background "dark slate gray"))))
@@ -158,7 +199,7 @@
  '(treemacs-git-unmodified-face ((t (:inherit treemacs-file-face :height 1.0))))
  '(treemacs-window-background-face ((t (:background "#242530"))))
  '(ts-fold-replacement-face ((t (:foreground unspecified :box nil :inherit font-lock-comment-face :weight light))))
- '(variable-pitch ((t (:slant normal :weight regular :height 110 :width normal :foundry "1ASC" :family "LiterationSans Nerd Font")))))
+ '(variable-pitch ((t (:family "Source Sans Variable" :height 120)))))
 (put 'customize-group 'disabled nil)
 (put 'customize-variable 'disabled nil)
 (put 'customize-face 'disabled nil)

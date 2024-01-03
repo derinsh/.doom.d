@@ -45,25 +45,38 @@
 ;;;; Core
 
 ;(setq doom-incremental-packages nil)
+
+; Async Comp
 (defconst dd/using-native-comp (and (fboundp 'native-comp-available-p)
                                       (native-comp-available-p)))
 (setq native-comp-async-query-on-exit t)
 (setq native-comp-async-report-warnings-errors nil)
 
+; LSP P-lists
 (setenv "LSP_USE_PLISTS" "1")
 (setq-default lsp-use-plists t)
 
-(setq straight-vc-git-default-clone-depth 1)
+; GC only on idle
+(after! gcmh
+  (setq! gcmh-idle-delay 10
+         gcmh-high-cons-threshold 104857600)
+  (gcmh-mode t))
+
+; Local modules
+(let ((default-directory "~/.doom.d/elp"))
+    (normal-top-level-add-subdirs-to-load-path))
+
 
 ;;;; UI
 
 (setq doom-font (font-spec :family "FiraCode Nerd Font" :size 18))
-(setq doom-variable-pitch-font (font-spec :family "LiterationSans Nerd Font" :size 19))
+(setq doom-variable-pitch-font (font-spec :family "Source Sans Variable" :size 20))
 
 (menu-bar-mode 0)
 (blink-cursor-mode 1)
 (pixel-scroll-precision-mode 1)
 
+; Multiple scrollbars
 (defun update-scroll-bars ()
   (interactive)
   (mapc (lambda (win)
@@ -76,6 +89,7 @@
 
 (+global-word-wrap-mode)
 
+; DOOM greeting
 (setq +doom-dashboard-ascii-banner-fn
       (lambda ()
         (let* ((banner '(" "
@@ -91,38 +105,34 @@
                "\n"))
      'face 'doom-dashboard-banner))))
 
+; Modeline
+(setq doom-modeline-battery nil
+      doom-modeline-buffer-modification-icon nil
+      doom-modeline-github t
+      doom-modeline-hud t
+      doom-modeline-major-mode-icon t
+      doom-modeline-major-mode-color-icon t
+      doom-modeline-lsp-icon t
+      doom-modeline-total-line-number t
+      doom-modeline-time nil
+      doom-modeline-time-icon nil
+      doom-modeline-unicode-fallback t
+      doom-modeline-workspace-name nil
+      doom-modeline-height 32
+      doom-modeline-icon t)
+
 ;;;; Config
 
-(let ((default-directory "~/.doom.d/elp"))
-    (normal-top-level-add-subdirs-to-load-path))
-
-(after! doom-modeline
-  (setq
-   doom-modeline-battery nil
-   doom-modeline-buffer-modification-icon nil
-   doom-modeline-github t
-   doom-modeline-hud t
-   doom-modeline-mode-icon t
-   doom-modeline-time nil
-   doom-modeline-time-icon nil
-   doom-modeline-unicode-fallback t
-   doom-modeline-workspace-name nil))
-
-(setq-default
-   doom-modeline-battery nil
-   doom-modeline-buffer-modification-icon nil
-   doom-modeline-github t
-   doom-modeline-hud t
-   doom-modeline-time nil
-   doom-modeline-time-icon nil
-   doom-modeline-unicode-fallback t
-   doom-modeline-workspace-name nil)
+(setq straight-vc-git-default-clone-depth 1)
 
 (add-hook 'Info-selection-hook 'info-colors-fontify-node)
 
 ;; Speed up fonts
 (setq-default inhibit-compacting-font-caches t)
 (setq-default bidi-inhibit-bpa t)
+
+; Forge auth
+;(setq auth-sources '("~/.authinfo.gpg"))
 
 ;;;; Prog
 
@@ -206,7 +216,7 @@
 
 (custom-theme-set-faces
    'user
-   '(variable-pitch ((t (:family "LiterationSans Nerd Font" :height 140))))
+   '(variable-pitch ((t (:family "Source Sans Variable" :height 120))))
    '(fixed-pitch ((t ( :family "FiraCode Nerd Font" :height 180)))))
 
 (add-hook 'org-mode-hook 'visual-line-mode)
@@ -265,12 +275,8 @@
 (after! gameoflife
   (setq! gameoflife-screensaver-timeout 180
          gameoflife-animation-speed 0.5)
-  (gameoflife-screensaver-mode t))
+  (add-hook 'server-after-make-frame-hook #'(lambda () (gameoflife-screensaver-mode 1))))
 
-(after! gcmh
-  (setq! gcmh-idle-delay 10
-         gcmh-high-cons-threshold 104857600)
-  (gcmh-mode t))
 
 ;;;; Ligatures
 
